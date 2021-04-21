@@ -1,5 +1,4 @@
 import 'package:devquiz/core/app_colors.dart';
-import 'package:devquiz/core/app_images.dart';
 import 'package:devquiz/core/app_text_styles.dart';
 import 'package:devquiz/shared/models/quiz_model.dart';
 import 'package:devquiz/shared/widgets/linear_progress_indicator_widget.dart';

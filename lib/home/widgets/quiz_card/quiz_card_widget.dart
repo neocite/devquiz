@@ -18,28 +18,33 @@ class QuizCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 40,
-            width: 40,
-            child: Image.asset(AppImages.blocks),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Container(
+              height: 40,
+              width: 40,
+              child: Image.asset(AppImages.blocks),
+            ),
           ),
-          SizedBox(
-            height: 24,
-          ),
-          Text(
-            "Gerenciamento de Estado",
-            style: AppTextStyles.heading15,
-          ),
-          SizedBox(
-            height: 24,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text(
+              "Gerenciamento de Estado",
+              style: AppTextStyles.heading15,
+            ),
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 flex: 1,
-                child: Text(
-                  "3 de 10",
-                  style: AppTextStyles.body11,
+                child: Row(
+                  children: [
+                    Text(
+                      "3 de 10",
+                      style: AppTextStyles.body11,
+                    ),
+                  ],
                 ),
               ),
               Expanded(

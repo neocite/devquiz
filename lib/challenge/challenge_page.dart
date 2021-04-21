@@ -22,7 +22,10 @@ class _ChallengePageState extends State<ChallengePage> {
         ),
       ),
       body: Container(
-        child: QuizWidget(title: "O que o Flutter faz em sua totalidade"),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+          child: QuizWidget(title: "O que o Flutter faz em sua totalidade"),
+        ),
       ),
     );
   }

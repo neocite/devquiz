@@ -42,13 +42,10 @@ class AppBarWidget extends PreferredSize {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  child: Align(
-                    alignment: Alignment(0.0, 1.0),
-                    child: ScoreCardWidget(
-                      user: user,
-                    ),
+                Align(
+                  alignment: Alignment(0.0, 1.0),
+                  child: ScoreCardWidget(
+                    user: user,
                   ),
                 )
               ],

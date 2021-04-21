@@ -16,16 +16,16 @@ class QuestionIndicatorWidget extends StatelessWidget {
               children: [
                 Text(
                   "Questão 04",
-                  style: AppTextStyles.body,
+                  style: AppTextStyles.body20,
                 ),
                 Text(
                   "de 10",
-                  style: AppTextStyles.body,
+                  style: AppTextStyles.body20,
                 )
               ],
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 8),
                 child: LinearProfressIndicatorWidget(
                   value: .7,
                 ))

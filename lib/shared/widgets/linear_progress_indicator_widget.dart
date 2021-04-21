@@ -12,8 +12,8 @@ class LinearProfressIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LinearProgressIndicator(
-      backgroundColor: AppColors.chartPrimary,
-      valueColor: AlwaysStoppedAnimation<Color>(AppColors.chartSecondary),
+      backgroundColor: AppColors.chartSecondary,
+      valueColor: AlwaysStoppedAnimation<Color>(AppColors.chartPrimary),
       value: this.value,
     );
   }

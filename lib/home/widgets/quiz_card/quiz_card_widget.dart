@@ -1,13 +1,14 @@
 import 'package:devquiz/core/app_colors.dart';
 import 'package:devquiz/core/app_images.dart';
 import 'package:devquiz/core/app_text_styles.dart';
+import 'package:devquiz/shared/models/quiz_model.dart';
 import 'package:devquiz/shared/widgets/linear_progress_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
 class QuizCardWidget extends StatelessWidget {
-  final String title;
+  final QuizModel quiz;
 
-  const QuizCardWidget({Key? key, required this.title}) : super(key: key);
+  const QuizCardWidget({Key? key, required this.quiz}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,13 +28,13 @@ class QuizCardWidget extends StatelessWidget {
             child: Container(
               height: 40,
               width: 40,
-              child: Image.asset(AppImages.blocks),
+              child: Image.asset(quiz.image),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Text(
-              this.title,
+              quiz.title,
               style: AppTextStyles.heading15,
             ),
           ),
@@ -45,7 +46,7 @@ class QuizCardWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "3 de 10",
+                      "${quiz.questionAnswered} de ${quiz.questions.length}",
                       style: AppTextStyles.body11,
                     ),
                   ],
@@ -54,8 +55,7 @@ class QuizCardWidget extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: LinearProfressIndicatorWidget(
-                    value: .3,
-                  ))
+                      value: quiz.questionAnswered / quiz.questions.length))
             ],
           )
         ],

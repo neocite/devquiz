@@ -43,9 +43,12 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: [
-                  QuizCardWidget(),
-                  QuizCardWidget(),
-                  QuizCardWidget(),
+                  QuizCardWidget(
+                    title: "Gerenciamento de Estado",
+                  ),
+                  QuizCardWidget(title: "Construindo Interfaces"),
+                  QuizCardWidget(title: "Integração Nativa"),
+                  QuizCardWidget(title: "Widgets do Flutter"),
                 ],
               ),
             )

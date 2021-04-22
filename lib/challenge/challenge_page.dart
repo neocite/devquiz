@@ -1,3 +1,4 @@
+import 'package:devquiz/challenge/challenge_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devquiz/challenge/widgets/next_button/next_button_widget.dart';
@@ -17,6 +18,18 @@ class ChallengePage extends StatefulWidget {
 }
 
 class _ChallengePageState extends State<ChallengePage> {
+  final controller = ChallengeController();
+  final pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    pageController.addListener(() {
+      controller.currentPage = pageController.page!.toInt() + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,20 +45,26 @@ class _ChallengePageState extends State<ChallengePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   }),
-              QuestionIndicatorWidget(
-                questions: widget.questions,
-              ),
+              ValueListenableBuilder<int>(
+                valueListenable: controller.currentPageNotifier,
+                builder: (context, value, _) => QuestionIndicatorWidget(
+                  questions: widget.questions,
+                  currentQuestion: value,
+                ),
+              )
             ],
           ),
         ),
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          child: QuizWidget(
-            question: widget.questions[0],
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            child: PageView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: pageController,
+                children: widget.questions
+                    .map((e) => QuizWidget(question: e))
+                    .toList())),
       ),
       bottomNavigationBar: SafeArea(
         bottom: true,
@@ -57,7 +76,12 @@ class _ChallengePageState extends State<ChallengePage> {
               Expanded(
                 child: NextButtonWidget.white(
                   label: "Pular",
-                  onTap: () {},
+                  onTap: () {
+                    pageController.nextPage(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.bounceIn,
+                    );
+                  },
                 ),
               ),
               SizedBox(

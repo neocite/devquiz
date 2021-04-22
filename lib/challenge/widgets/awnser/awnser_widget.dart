@@ -8,13 +8,15 @@ class AwnserWidget extends StatelessWidget {
   final AwnserModel awnser;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isDisable;
 
-  AwnserWidget({
-    Key? key,
-    required this.awnser,
-    this.isSelected = false,
-    required this.onTap,
-  }) : super(key: key);
+  AwnserWidget(
+      {Key? key,
+      required this.awnser,
+      this.isSelected = false,
+      required this.onTap,
+      this.isDisable = true})
+      : super(key: key);
 
   Color get _selectedColorCardRight =>
       awnser.isRight ? AppColors.lightGreen : AppColors.lightRed;
@@ -32,43 +34,50 @@ class AwnserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-              color: isSelected ? _selectedColorCardRight : AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.fromBorderSide(
-                BorderSide(
-                  color:
-                      isSelected ? _selectedBorderCardRight : AppColors.border,
+    return IgnorePointer(
+      ignoring: isDisable,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+                color: isSelected ? _selectedColorCardRight : AppColors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.fromBorderSide(
+                  BorderSide(
+                    color: isSelected
+                        ? _selectedBorderCardRight
+                        : AppColors.border,
+                  ),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    awnser.title,
+                    style: isSelected
+                        ? _selectedTextStyleRight
+                        : isDisable
+                            ? AppTextStyles.bodyWhite
+                            : AppTextStyles.body,
+                  ),
                 ),
-              )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 4,
-                child: Text(
-                  awnser.title,
-                  style:
-                      isSelected ? _selectedTextStyleRight : AppTextStyles.body,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                    width: 24,
-                    height: 24,
-                    child: Icon(
-                      isSelected ? _selectedIconRight : null,
-                      color: isSelected ? _selectedColorIconRight : null,
-                    )),
-              )
-            ],
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      width: 24,
+                      height: 24,
+                      child: Icon(
+                        isSelected ? _selectedIconRight : null,
+                        color: isSelected ? _selectedColorIconRight : null,
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),

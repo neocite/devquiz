@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:devquiz/challenge/widgets/awnser/awnser_widget.dart';
 import 'package:devquiz/core/core.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +11,7 @@ class NextButtonWidget extends StatelessWidget {
   final Color fontColor;
   final Color borderColor;
   final Color overlayColor;
+  final VoidCallback onTap;
 
   const NextButtonWidget({
     Key? key,
@@ -17,20 +20,23 @@ class NextButtonWidget extends StatelessWidget {
     required this.fontColor,
     required this.borderColor,
     required this.overlayColor,
+    required this.onTap,
   }) : super(key: key);
 
-  NextButtonWidget.green({required String label})
+  NextButtonWidget.green({required String label, required VoidCallback onTap})
       : this.backgroundColor = AppColors.darkGreen,
         this.fontColor = AppColors.white,
         this.borderColor = AppColors.darkGreen,
         this.overlayColor = AppColors.green,
+        this.onTap = onTap,
         this.label = label;
 
-  NextButtonWidget.white({required String label})
+  NextButtonWidget.white({required String label, required VoidCallback onTap})
       : this.backgroundColor = AppColors.white,
         this.fontColor = AppColors.grey,
         this.borderColor = AppColors.border,
         this.overlayColor = AppColors.lightGrey,
+        this.onTap = onTap,
         this.label = label;
 
   @override
@@ -54,7 +60,7 @@ class NextButtonWidget extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () {},
+        onPressed: onTap,
         child: Text(
           label,
           style: GoogleFonts.notoSans(

@@ -14,18 +14,25 @@ class _ChallengePageState extends State<ChallengePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: SafeArea(
-            top: true,
-            child: QuestionIndicatorWidget(),
+        preferredSize: Size.fromHeight(100),
+        child: SafeArea(
+          top: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              QuestionIndicatorWidget(),
+            ],
           ),
         ),
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
           child: QuizWidget(title: "O que o Flutter faz em sua totalidade"),
         ),
       ),

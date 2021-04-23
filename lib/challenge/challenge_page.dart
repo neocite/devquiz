@@ -31,7 +31,7 @@ class _ChallengePageState extends State<ChallengePage> {
   }
 
   void _nextPage(VoidCallback callback) {
-    if (controller.currentPage == widget.questions.length) {
+    if (isLastPage) {
       callback();
     } else {
       pageController.nextPage(
@@ -40,6 +40,8 @@ class _ChallengePageState extends State<ChallengePage> {
       );
     }
   }
+
+  bool get isLastPage => controller.currentPage == widget.questions.length;
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +88,17 @@ class _ChallengePageState extends State<ChallengePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                child: NextButtonWidget.white(
-                  label: "Próximo",
-                  onTap: () {
-                    _nextPage(() => Navigator.pop(context));
-                  },
+              ValueListenableBuilder<int>(
+                valueListenable: controller.currentPageNotifier,
+                builder: (context, value, _) => Expanded(
+                  child: NextButtonWidget.white(
+                    label: isLastPage ? "Finalizar" : "Próximo",
+                    onTap: () {
+                      _nextPage(() => Navigator.pop(context));
+                    },
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),

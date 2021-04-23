@@ -68,7 +68,7 @@ class ResultPage extends StatelessWidget {
                           label: "Compartilhar",
                           onTap: () {
                             Share.share(
-                                "Eu acertei ${rightAnswers / quiz.questions.length}% do desafio ${quiz.title} no app DevQuiz! ");
+                                "Eu acertei ${((rightAnswers / quiz.questions.length) * 100).toInt()}% do desafio ${quiz.title} no app DevQuiz! ");
                           },
                         ),
                       ),

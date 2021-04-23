@@ -7,10 +7,12 @@ import 'package:devquiz/shared/models/question_model.dart';
 
 class QuizWidget extends StatefulWidget {
   final QuestionModel question;
+  final ValueChanged<bool> onTap;
 
   const QuizWidget({
     Key? key,
     required this.question,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -48,6 +50,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     onTap: () {
                       controller.indexSelected =
                           widget.question.awnsers.indexOf(e);
+                      widget.onTap(e.isRight);
                     },
                     isDisable: controller.indexSelected != -1,
                     isSelected: widget.question.awnsers.indexOf(e) ==

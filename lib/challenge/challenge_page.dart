@@ -1,16 +1,17 @@
-import 'package:devquiz/challenge/challenge_controller.dart';
 import 'package:flutter/material.dart';
 
+import 'package:devquiz/challenge/challenge_controller.dart';
 import 'package:devquiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:devquiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:devquiz/challenge/widgets/quiz/quiz_widget.dart';
-import 'package:devquiz/shared/models/question_model.dart';
+import 'package:devquiz/result/result_page.dart';
+import 'package:devquiz/shared/models/quiz_model.dart';
 
 class ChallengePage extends StatefulWidget {
-  final List<QuestionModel> questions;
+  final QuizModel quiz;
   const ChallengePage({
     Key? key,
-    required this.questions,
+    required this.quiz,
   }) : super(key: key);
 
   @override
@@ -41,7 +42,19 @@ class _ChallengePageState extends State<ChallengePage> {
     }
   }
 
-  bool get isLastPage => controller.currentPage == widget.questions.length;
+  void _gotoResultPage(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultPage(
+          quiz: widget.quiz,
+          rightAnswers: controller.rightAnswers,
+        ),
+      ),
+    );
+  }
+
+  bool get isLastPage => controller.currentPage == widget.quiz.questions.length;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +74,7 @@ class _ChallengePageState extends State<ChallengePage> {
               ValueListenableBuilder<int>(
                 valueListenable: controller.currentPageNotifier,
                 builder: (context, value, _) => QuestionIndicatorWidget(
-                  questions: widget.questions,
+                  questions: widget.quiz.questions,
                   currentQuestion: value,
                 ),
               )
@@ -75,9 +88,14 @@ class _ChallengePageState extends State<ChallengePage> {
             child: PageView(
                 physics: NeverScrollableScrollPhysics(),
                 controller: pageController,
-                children: widget.questions
+                children: widget.quiz.questions
                     .map((e) => QuizWidget(
                           question: e,
+                          onTap: (value) {
+                            if (value) {
+                              controller.rightAnswers++;
+                            }
+                          },
                         ))
                     .toList())),
       ),
@@ -95,7 +113,7 @@ class _ChallengePageState extends State<ChallengePage> {
                         child: NextButtonWidget.green(
                           label: "Finalizar",
                           onTap: () {
-                            _nextPage(() => Navigator.pop(context));
+                            _nextPage(() => _gotoResultPage(context));
                           },
                         ),
                       )
@@ -103,7 +121,7 @@ class _ChallengePageState extends State<ChallengePage> {
                         child: NextButtonWidget.white(
                           label: "Próximo",
                           onTap: () {
-                            _nextPage(() => Navigator.pop(context));
+                            _nextPage(() => _gotoResultPage(context));
                           },
                         ),
                       ),

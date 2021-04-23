@@ -90,14 +90,23 @@ class _ChallengePageState extends State<ChallengePage> {
             children: [
               ValueListenableBuilder<int>(
                 valueListenable: controller.currentPageNotifier,
-                builder: (context, value, _) => Expanded(
-                  child: NextButtonWidget.white(
-                    label: isLastPage ? "Finalizar" : "Próximo",
-                    onTap: () {
-                      _nextPage(() => Navigator.pop(context));
-                    },
-                  ),
-                ),
+                builder: (context, value, _) => isLastPage
+                    ? Expanded(
+                        child: NextButtonWidget.green(
+                          label: "Finalizar",
+                          onTap: () {
+                            _nextPage(() => Navigator.pop(context));
+                          },
+                        ),
+                      )
+                    : Expanded(
+                        child: NextButtonWidget.white(
+                          label: "Próximo",
+                          onTap: () {
+                            _nextPage(() => Navigator.pop(context));
+                          },
+                        ),
+                      ),
               )
             ],
           ),

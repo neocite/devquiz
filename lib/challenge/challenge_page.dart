@@ -30,11 +30,15 @@ class _ChallengePageState extends State<ChallengePage> {
     });
   }
 
-  void _nextPage() {
-    pageController.nextPage(
-      duration: Duration(milliseconds: 500),
-      curve: Curves.bounceIn,
-    );
+  void _nextPage(VoidCallback callback) {
+    if (controller.currentPage == widget.questions.length) {
+      callback();
+    } else {
+      pageController.nextPage(
+        duration: Duration(milliseconds: 500),
+        curve: Curves.bounceIn,
+      );
+    }
   }
 
   @override
@@ -72,9 +76,6 @@ class _ChallengePageState extends State<ChallengePage> {
                 children: widget.questions
                     .map((e) => QuizWidget(
                           question: e,
-                          onTap: () {
-                            _nextPage();
-                          },
                         ))
                     .toList())),
       ),
@@ -87,15 +88,12 @@ class _ChallengePageState extends State<ChallengePage> {
             children: [
               Expanded(
                 child: NextButtonWidget.white(
-                  label: "Pular",
+                  label: "Próximo",
                   onTap: () {
-                    _nextPage();
+                    _nextPage(() => Navigator.pop(context));
                   },
                 ),
               ),
-              SizedBox(
-                width: 7,
-              )
             ],
           ),
         ),
